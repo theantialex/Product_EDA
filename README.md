@@ -47,7 +47,6 @@ After looking at the variations of values in each column, two columns were ident
 
 After data preporation, summary of numerical features was obtained:
 ```
-Name: Product_Size, Length: 412, dtype: int64
               S.No    Sell_Price     Discount
 count  4566.000000   4566.000000  4566.000000
 mean   2283.500000   2005.222733    29.991897
