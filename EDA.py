@@ -11,6 +11,11 @@ def clean_size(val):
         val = val[val.index(':') + 1:]
     return val
 
+def clean_MRP(row):
+    if isinstance(row['MRP'], float) or isinstance(row['MRP'], int) or (isinstance(row['MRP'], str) and row['MRP'].isdigit()):
+        return float(row['MRP'])
+    return row['Sell_Price']
+
 # Make columns visible
 pd.set_option('max_columns', 100)
 
@@ -46,6 +51,15 @@ print((~df['Discount'].str.contains('% off')).sum())
 
 df['Discount'] = df['Discount'].apply(clean_percentage)
 
+# Check out and clean up MRP values
+print(df['MRP'].unique())
+
+df['MRP'] = df.apply(clean_MRP, axis=1)
+
+# Add new columns
+df['Actual_Price'] = df.Sell_Price * (1-df.Discount/100)
+df['Diff_MRP_Price'] = df.MRP - df.Sell_Price
+
 # Check out and clean up product size values
 print(df['Product_Size'].value_counts())
 
@@ -69,7 +83,6 @@ plt.show()
 
 # Pie chart for category distribution
 bx = df['Category'].value_counts() \
-    .head(10) \
     .plot(kind='pie', title='Categories Distribution', autopct='%1.1f%%',).axis('off')
 
 plt.savefig('categories.png')

@@ -37,24 +37,37 @@ Category         0
 dtype: int64
 ```
 
-MRP stands for Maximum retail price, so there can be some NaN values in this column. No duplicate columns were found.
+MRP stands for Maximum retail price, so there can be some NaN values in this column, but this will be changed in the next step. No duplicate columns were found.
 
-After looking at the variations of values in each column, two columns were identified that needed some cleanup in order to conduct further analysis:
+After looking at the variations of values in each column, three columns were identified that needed some cleanup in order to conduct further analysis:
 1) Discount column was transformed to contain only the numerical value of percentage.
 2) In Product_Size column 'Size:' prefixes were removed from some rows and 'Nan' string was replaced by NaN value.
+3) In MRP column some of the values had different types so they were all transformed into float, NaN values were interpreted as if Sell_Price equals to MRP.
 
 ### Data Summary
+Since we have Sell_Price and Discount it would be useful to see statisicts of actual prices, so a new colunm Actual_Price that combined Sell_Prices and Discounts was added. Additionally, it would be interesting to note the differences between MRP and Sell_Price columns, so a new colunm 'Diff_MRP_Price' was added. 
 
 After data preparation, summary of numerical features was obtained:
 ```
-              S.No    Sell_Price     Discount
-count  4566.000000   4566.000000  4566.000000
-mean   2283.500000   2005.222733    29.991897
-std    1318.234994   2259.614915    17.856129
-min       1.000000     89.000000     5.000000
-25%    1142.250000    749.000000    10.000000
-50%    2283.500000   1379.000000    30.000000
-75%    3424.750000   2299.000000    50.000000
+              S.No           MRP    Sell_Price     Discount  Actual_Price  \
+count  4566.000000   4553.000000   4566.000000  4566.000000   4566.000000
+mean   2283.500000   2416.316934   2005.222733    29.991897   1559.355184
+std    1318.234994   2554.005880   2259.614915    17.856129   1973.356653
+min       1.000000      0.000000     89.000000     5.000000     26.700000
+25%    1142.250000    999.000000    749.000000    10.000000    467.400000
+50%    2283.500000   1799.000000   1379.000000    30.000000    899.400000
+75%    3424.750000   2799.000000   2299.000000    50.000000   1804.050000
+max    4566.000000  28495.000000  25995.000000    80.000000  23395.500000
+
+       Diff_MRP_Price
+count     4553.000000
+mean       406.675599
+std       1371.789392
+min     -11630.000000
+25%          0.000000
+50%        420.000000
+75%        860.000000
+max      11498.000000
 ```
 
 ### Univariate analysis
