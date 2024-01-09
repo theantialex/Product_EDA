@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pylab as plt
+import seaborn as sns
 
 def clean_percentage(val):
     return int(val[:val.index('%')])
@@ -86,4 +87,71 @@ bx = df['Category'].value_counts() \
     .plot(kind='pie', title='Categories Distribution', autopct='%1.1f%%',).axis('off')
 
 plt.savefig('categories.png')
+plt.show()
+
+# Overall pricing strategies
+
+# Sell_Price vs Discount with Categories
+plt.figure(figsize=(8,4))
+cx = sns.scatterplot(x='Discount',
+                y='Sell_Price',
+                hue='Category',
+                data=df)
+cx.set_title('Prices and Discounts')
+cx.set_ylabel('Price')
+
+plt.savefig('prices_discounts.png')
+plt.show()
+
+# Group by Category and sum the MRT and Sell_Price values
+grouped_df = df.groupby('Category').sum()
+grouped_df = grouped_df[[ 'MRP', 'Sell_Price', 'Actual_Price']]
+
+grouped_df.plot(kind='bar')
+
+plt.title('MRP and Price by Category')
+plt.xlabel('Category')
+plt.ylabel('Sum')
+plt.legend(title='Metric', loc='upper left')
+
+plt.xticks(rotation=40)
+plt.tight_layout()
+
+plt.savefig('MRP_prices.png')
+plt.show()
+
+# Identify and loc top 10 brands
+brands = df['Brand_Name'].value_counts().head(10).keys()
+new_df = df.loc[df['Brand_Name'].isin(brands)]
+
+# Stacked Bar Chart of Category by Brand (top 10 stats)
+# Group the data by brand and category, and count the occurrences
+grouped_data = new_df.groupby(['Brand_Name', 'Category']).size().unstack()
+grouped_data.plot(kind='bar', stacked=True)
+
+plt.title('Category Count by Brand')
+plt.xlabel('Brand')
+plt.ylabel('Category')
+plt.legend(title='Categories by Brand', loc='upper left')
+
+plt.xticks(rotation=30)
+plt.tight_layout()
+
+plt.savefig('categories_by_brands.png')
+plt.show()
+
+# Brand specific pricing patterns (top 10 stats)
+dx = sns.scatterplot(x='Brand_Name',
+                y='Actual_Price',
+                hue='Category',
+                data=new_df)
+dx.set_title('Prices and Brands')
+dx.set_xlabel('Brand')
+dx.set_ylabel('Price')
+plt.legend(title='Metric', loc='upper left')
+
+plt.xticks(rotation=30)
+plt.tight_layout()
+
+plt.savefig('brand_pricing.png')
 plt.show()

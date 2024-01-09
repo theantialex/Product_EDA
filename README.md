@@ -85,3 +85,25 @@ For the column Brand_Name, Brand-wise analysis is conducted and the top ten bran
 
 For the column Categories, Category-wise analysis is conducted and the distribution of products by categories is identified. This data is visualized with a pie chart. 
 ![Alt text](categories.png)
+
+
+### Multivariate analysis
+
+First, let's identify overall pricing trends and strategies. 
+For that we can look at corelation between Sell_Price and Discount with Categories.
+![Alt text](prices_discounts.png)
+
+Additionally, we can look at corelation between MRT, Sell_Price and Actual_Price by Category and identify categories with the biggest markup.
+![Alt text](MRP_prices.png)
+
+
+Secondly, let's explore top 10 brands that were identified earlier.
+For that we can look at stacked bar chart of categories by brands.
+![Alt text](categories_by_brands.png)
+
+In order to identify brand specific pricing patterns, we can look at the differences between MRT, Sell_Price and Actual_Price. 
+
+![Alt text](brand_pricing.png)
+
+
+
