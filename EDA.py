@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pylab as plt
 
 def clean_percentage(val):
     return int(val[:val.index('%')])
@@ -12,6 +13,9 @@ def clean_size(val):
 
 # Make columns visible
 pd.set_option('max_columns', 100)
+
+# Update plot style
+plt.style.use('ggplot')
 
 # Load the dataset
 df = pd.read_csv('Product_DataSet.csv')
@@ -49,3 +53,24 @@ df['Product_Size'] = df['Product_Size'].apply(clean_size)
 
 # Summary statistics 
 print(df.describe())
+
+# Bar chart for top 10 brands by products amount
+ax = df['Brand_Name'].value_counts() \
+    .head(10) \
+    .plot(kind='barh', title='Top 10 Brands by Products Amount')
+
+ax.set_xlabel('Product Count')
+ax.set_ylabel('Brand Name')
+ax.invert_yaxis()
+
+plt.savefig('top_brands.png')
+plt.show()
+
+
+# Pie chart for category distribution
+bx = df['Category'].value_counts() \
+    .head(10) \
+    .plot(kind='pie', title='Categories Distribution', autopct='%1.1f%%',).axis('off')
+
+plt.savefig('categories.png')
+plt.show()

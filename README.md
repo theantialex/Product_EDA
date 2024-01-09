@@ -1,5 +1,5 @@
 # Exploratory Data Analysis - Product DataSet
-### Data preporation
+### Data Preparation
 After Product Dataset is loaded, initial data exploration is conducted. We get information about given columns and their data types:
 
 ```
@@ -21,7 +21,7 @@ Data columns (total 11 columns):
 dtypes: int64(2), object(9)
 memory usage: 231.9+ KB
 ```
-Since the column names follow different naming conventions, some of them are renamed. Then dataset is checked for Nan values in inapropriate places and for duplicate rows:
+Since the column names follow different naming conventions, some of them are renamed. Then dataset is checked for Nan values in inappropriate places and for duplicate rows:
 ```
 S.No             0
 Brand_Name       0
@@ -39,13 +39,13 @@ dtype: int64
 
 MRP stands for Maximum retail price, so there can be some NaN values in this column. No duplicate columns were found.
 
-After looking at the variations of values in each column, two columns were identified that needed some clean up in order to conduct further analysis:
+After looking at the variations of values in each column, two columns were identified that needed some cleanup in order to conduct further analysis:
 1) Discount column was transformed to contain only the numerical value of percentage.
 2) In Product_Size column 'Size:' prefixes were removed from some rows and 'Nan' string was replaced by NaN value.
 
 ### Data Summary
 
-After data preporation, summary of numerical features was obtained:
+After data preparation, summary of numerical features was obtained:
 ```
               S.No    Sell_Price     Discount
 count  4566.000000   4566.000000  4566.000000
@@ -56,3 +56,19 @@ min       1.000000     89.000000     5.000000
 50%    2283.500000   1379.000000    30.000000
 75%    3424.750000   2299.000000    50.000000
 ```
+
+### Univariate analysis
+
+Let's analyze the columns individually:
+1) There are three columns with unique values: S. No, Product_ID, Product_Name.
+2) There is a column with the same value in every row: Currency.
+3) There are two columns that are not relevant to the analysis: Brand Desc (since its values are almost unique), Product Size (since its values are not standardized).
+4) This leaves us with five columns: Brand_Name, MRP, SellPrice, Discount, Category.
+
+For columns MRP, SellPrice, Discount we already acquired some knowledge about their value distributions (e.g. mean and median values) in the dataset summary. So now we can analyze the remaining two columns: Brand_Name and Category.
+
+For the column Brand_Name, Brand-wise analysis is conducted and the top ten brands with the most products are identified. This data is visualized with a horizontal bar chart.
+![Alt text](top_brands.png)
+
+For the column Categories, Category-wise analysis is conducted and the distribution of products by categories is identified. This data is visualized with a pie chart. 
+![Alt text](categories.png)
