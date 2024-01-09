@@ -97,9 +97,12 @@ cx = sns.scatterplot(x='Discount',
                 y='Sell_Price',
                 hue='Category',
                 data=df)
+
 cx.set_title('Prices and Discounts')
 cx.set_ylabel('Price')
+sns.move_legend(cx, "upper left", bbox_to_anchor=(1, 1))
 
+plt.tight_layout()
 plt.savefig('prices_discounts.png')
 plt.show()
 
@@ -113,10 +116,9 @@ plt.title('MRP and Price by Category')
 plt.xlabel('Category')
 plt.ylabel('Sum')
 plt.legend(title='Metric', loc='upper left')
-
 plt.xticks(rotation=40)
-plt.tight_layout()
 
+plt.tight_layout()
 plt.savefig('MRP_prices.png')
 plt.show()
 
@@ -125,33 +127,34 @@ brands = df['Brand_Name'].value_counts().head(10).keys()
 new_df = df.loc[df['Brand_Name'].isin(brands)]
 
 # Stacked Bar Chart of Category by Brand (top 10 stats)
+
 # Group the data by brand and category, and count the occurrences
 grouped_data = new_df.groupby(['Brand_Name', 'Category']).size().unstack()
-grouped_data.plot(kind='bar', stacked=True)
+grouped_data.plot(kind='bar', stacked=True, figsize=(8,4))
 
 plt.title('Category Count by Brand')
 plt.xlabel('Brand')
 plt.ylabel('Category')
-plt.legend(title='Categories by Brand', loc='upper left')
-
+plt.legend(title='Categories by Brand', loc='upper left', bbox_to_anchor=(1, 1))
 plt.xticks(rotation=30)
-plt.tight_layout()
 
+plt.tight_layout()
 plt.savefig('categories_by_brands.png')
 plt.show()
 
 # Brand specific pricing patterns (top 10 stats)
+plt.figure(figsize=(8,4))
 dx = sns.scatterplot(x='Brand_Name',
                 y='Actual_Price',
                 hue='Category',
                 data=new_df)
+
 dx.set_title('Prices and Brands')
 dx.set_xlabel('Brand')
 dx.set_ylabel('Price')
-plt.legend(title='Metric', loc='upper left')
-
+sns.move_legend(dx, "upper left", bbox_to_anchor=(1, 1))
 plt.xticks(rotation=30)
-plt.tight_layout()
 
+plt.tight_layout()
 plt.savefig('brand_pricing.png')
 plt.show()

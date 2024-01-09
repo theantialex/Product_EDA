@@ -76,9 +76,9 @@ Let's analyze the columns individually:
 1) There are three columns with unique values: S. No, Product_ID, Product_Name.
 2) There is a column with the same value in every row: Currency.
 3) There are two columns that are not relevant to the analysis: Brand Desc (since its values are almost unique), Product Size (since its values are not standardized).
-4) This leaves us with five columns: Brand_Name, MRP, SellPrice, Discount, Category.
+4) This leaves us with five columns: Brand_Name, MRP, Sell_Pricece, Discount, Category.
 
-For columns MRP, SellPrice, Discount we already acquired some knowledge about their value distributions (e.g. mean and median values) in the dataset summary. So now we can analyze the remaining two columns: Brand_Name and Category.
+For columns MRP, Sell_Pricece, Discount we already acquired some knowledge about their value distributions (e.g. mean and median values) in the dataset summary. So now we can analyze the remaining two columns: Brand_Name and Category.
 
 For the column Brand_Name, Brand-wise analysis is conducted and the top ten brands with the most products are identified. This data is visualized with a horizontal bar chart.
 ![Alt text](top_brands.png)
